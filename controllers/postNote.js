@@ -1,4 +1,3 @@
-const router = require('express').Router();
 const {v4: uuidv4} = require('uuid');
 const fs = require('fs');
 const notes = require('../db/db.json');
@@ -21,10 +20,10 @@ const postNote = (req,res)=>{
             title,
             text
         } 
-        // push to global notes array
-        notes.push(newNote); 
+        
+        notes.push(newNote); // add to global notes array
 
-        // construct our own response object 
+        // construct our own response object with the new data 
         const response = {
             status: 'success',
             type: 'ADD',
@@ -38,7 +37,7 @@ const postNote = (req,res)=>{
                 res.status(500).send(err.message);
             } else {
                 console.info(`\nData written to ./db/db.json`);
-                res.status(201).send(response); // return our own response object
+                res.status(201).send(response); 
             }
         });
     } else {

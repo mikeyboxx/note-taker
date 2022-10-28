@@ -1,4 +1,4 @@
-const fs = require('fs');
+const {writeToFile} = require('../utils/fsUtils.js');
 const notes = require('../db/db.json');
 
 // POST request to delete a note
@@ -23,16 +23,16 @@ const deleteNote = (req,res)=>{
 
             notes.splice(idx,1); // delete the note from array
 
-            // save array as json string, in db.json file  
-            fs.writeFile('./db/db.json', JSON.stringify(notes, null, 4), (err) => {
-                if (err){
-                    console.error(err);
-                    res.status(500).send(err.message);
-                } else {
+            // save array as json string, in db.json file 
+            writeToFile('./db/db.json', JSON.stringify(notes, null, 4))
+                .then(()=>{
                     console.info(`\n${req.params.id} has been deleted from ./db/db.json`);  
                     res.status(201).send(response); 
-                }
-            })
+             })
+                .catch(err=>{
+                    console.error(err);
+                    res.status(500).send(err.message);
+             })
         }
     }
 };

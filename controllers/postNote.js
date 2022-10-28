@@ -2,7 +2,6 @@ const {v4: uuidv4} = require('uuid');
 const {writeToFile} = require('../utils/fsUtils.js');
 const notes = require('../db/db.json');
 
-
 // POST request to add a note
 const postNote = (req,res)=>{
     console.info(`${req.method} request received to add a note`);

@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const {v4: uuidv4} = require('uuid');
+const fs = require('fs');
 const notes = require('../../db/db.json');
 
 // GET request to get all notes
@@ -28,14 +29,22 @@ router.post('/', (req,res)=>{
         // push to global notes array
         notes.push(newNote); 
 
-        // construct response object 
+        // construct our own response object 
         const response = {
             status: 'success',
             data: newNote,
-          };
+        };
 
-        // return the response object    
-        res.status(201).send(response); //
+        // save array as json string, in db.json file  
+        fs.writeFile('./db/db.json', JSON.stringify(notes, null, 4), (err) => {
+            if (err){
+                console.error(err);
+                res.status(500).send(err.message);
+            } else {
+                console.info(`\nData written to ./db/db.json`);
+                res.status(201).send(response); // return our own response object
+            }
+        });
     } else {
         res.status(500).json('Error in posting note');
     }

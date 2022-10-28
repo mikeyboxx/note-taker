@@ -1,5 +1,5 @@
 const {v4: uuidv4} = require('uuid');
-const fs = require('fs');
+const {writeToFile} = require('../utils/fsUtils.js');
 const notes = require('../db/db.json');
 
 
@@ -31,18 +31,17 @@ const postNote = (req,res)=>{
         };
 
         // save array as json string, in db.json file  
-        fs.writeFile('./db/db.json', JSON.stringify(notes, null, 4), (err) => {
-            if (err){
-                console.error(err);
-                res.status(500).send(err.message);
-            } else {
+        writeToFile('./db/db.json', JSON.stringify(notes, null, 4))
+            .then(()=>{
                 console.info(`\nData written to ./db/db.json`);
                 res.status(201).send(response); 
-            }
-        });
-    } else {
+            })
+            .catch(err=>{
+                console.error(err);
+                res.status(500).send(err.message);
+            })
+    } else
         res.status(500).json('Error in posting note');
-    }
-};
+}
 
 module.exports = postNote;

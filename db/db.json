@@ -1,17 +1,7 @@
 [
-          {
-                    "id": "c4c7e6bd-d1fc-421c-9151-7c5977497e1b",
-                    "title": "another one",
-                    "text": "hyesssssh"
-          },
-          {
-                    "id": "d4b7b3d9-968c-4734-b665-0f5375253692",
-                    "title": "another one2",
-                    "text": "hyesssss222h"
-          },
-          {
-                    "id": "e6c82103-495a-4f3d-9a64-040074f91358",
-                    "title": "another one2",
-                    "text": "hyesssss222h"
-          }
+    {
+        "id": "d50ed7b0-26ae-415e-ae4c-b025a23e53ef",
+        "title": "First Note of the day",
+        "text": "tired very tired"
+    }
 ]
